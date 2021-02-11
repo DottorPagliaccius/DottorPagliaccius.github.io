@@ -848,7 +848,7 @@ $(document).ready(function () {
         $('#menuMobile').show();
     });
 
-    $("#shareButton").click(function(){
+    $(".shareButton").click(function(){
      
         var title=$(this).attr("title");
         var description=$(this).attr("description");
