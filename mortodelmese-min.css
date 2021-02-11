@@ -312,7 +312,7 @@
 
 #searchValueContainer,
 #searchValueContainerMobile {
-  background: url(https://www.lepers.it/morto/immagini/searchglass.png)
+  background: url(https://dottorpagliaccius.github.io/searchglass.png)
     no-repeat 2% 8px;
   border: 1px solid #000;
   -moz-border-radius: 5px;
@@ -324,7 +324,7 @@
 }
 
 #searchValueContainerMobile {
-  background: url(https://www.lepers.it/morto/immagini/searchglass.png)
+  background: url(https://dottorpagliaccius.github.io/searchglass.png)
     no-repeat 2% 10px;
   background-size: 20px;
 }
@@ -596,7 +596,7 @@ blockquote {
   margin: 20px 10px;
   padding-left: 20px;
   font-style: italic;
-  background: transparent url(https://www.lepers.it/morto/immagini/quote.png)
+  background: transparent url(https://dottorpagliaccius.github.io/quote.png)
     no-repeat;
 }
 
@@ -805,7 +805,7 @@ strong {
 #box {
   width: 40px;
   height: 91px;
-  background-image: url(https://www.lepers.it/morto/immagini/ArrowTopWhite.png);
+  background-image: url(https://dottorpagliaccius.github.io/ArrowTopWhite.png);
   position: fixed;
   bottom: -91px;
   right: 3px;
