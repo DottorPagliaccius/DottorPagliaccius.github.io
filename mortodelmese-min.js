@@ -74,7 +74,7 @@ function SearchMobile() {
 
     var content = document.getElementById('contentSearchMobile');
 
-    content.innerHTML = '<img src="https://www.lepers.it/morto/immagini/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
+    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
 
     var feedUri = '/feeds/6675218908136689140/posts/default/-/Tutto+il+morto+minuto+per+minuto?q='+name+'&max-results=20&start-index=1&alt=json';
 
@@ -203,7 +203,7 @@ function SearchMenu() {
     var found = 0;    
     var content = document.getElementById('contentSearch');
 
-    content.innerHTML = '<img src="https://www.lepers.it/morto/immagini/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
+    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
 
     var feedUri = '/feeds/6675218908136689140/posts/default/-/Tutto+il+morto+minuto+per+minuto?q='+name+'&max-results=20&start-index=1&alt=json';
 
@@ -407,7 +407,7 @@ function BindPostPerview(selector) {
 
             $(this).attr("scolo", _index);
 
-            $("body").append('<div class="loaderPost" id="loader' + _index + '"><img src="https://www.lepers.it/morto/immagini/refreshInvertita.gif" /></div>');
+            $("body").append('<div class="loaderPost" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io/refreshInvertita.gif" /></div>');
 
             var loader = $("#loader" + _index);
 
@@ -432,7 +432,7 @@ function BindPostPerview(selector) {
 
                 if (status == "error") {
 
-                    $("#loader" + _index).html("<img src='https://www.lepers.it/morto/immagini/close.png' />");
+                    $("#loader" + _index).html("<img src='https://dottorpagliaccius.github.io/close.png' />");
                     return true;
                 }
 
@@ -521,7 +521,7 @@ $(document).ready(function () {
 
             $(this).attr("scolo", _index);
 
-            $("body").append('<div class="loader" id="loader' + _index + '"><img src="https://www.lepers.it/morto/immagini/refreshInvertita.gif" /></div>');
+            $("body").append('<div class="loader" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io//refresh-bianca.gif" /></div>');
 
             $("#loader" + _index).css("top", (e.pageY + 10) + "px").css("left", (e.pageX + 5) + "px").fadeIn("fast");
 
@@ -536,7 +536,7 @@ $(document).ready(function () {
 
                 if (thisImage.prop('width') == 0) {
 
-                    loader.html("<img src='https://www.lepers.it/morto/immagini/close.png' />");
+                    loader.html("<img src='https://dottorpagliaccius.github.io/close.png' />");
                     return true;
                 }
 
@@ -561,7 +561,7 @@ $(document).ready(function () {
 
             }).error(function () { // notify the user that the image could not be loaded
 
-                    $("#loader" + _index).html("<img src='https://www.lepers.it/morto/immagini/close.png' />");
+                    $("#loader" + _index).html("<img src='https://dottorpagliaccius.github.io/close.png' />");
 
                 }).attr('src', imageUrl);
         },
@@ -597,7 +597,7 @@ $(document).ready(function () {
 
         $(this).attr("scolo", _index);
 
-        $("body").append('<div class="loader" id="loader' + _index + '"><img src="https://www.lepers.it/morto/immagini/refreshInvertita.gif" /></div>');
+        $("body").append('<div class="loader" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io/refresh-bianca.gif" /></div>');
 
         var leftPosition = (e.pageX + 5);
 
@@ -614,7 +614,7 @@ $(document).ready(function () {
 
             if (thisImage.prop('width') == 0) {
 
-                loader.html("<img src='https://www.lepers.it/morto/immagini/close.png' />");
+                loader.html("<img src='https://dottorpagliaccius.github.io/close.png' />");
                 return true;
             }
 
@@ -639,7 +639,7 @@ $(document).ready(function () {
 
         }).error(function () { // notify the user that the image could not be loaded
 
-                $("#loader" + _index).html("<img src='https://www.lepers.it/morto/immagini/close.png' />");
+                $("#loader" + _index).html("<img src='hhttps://dottorpagliaccius.github.io/close.png' />");
 
             }).attr('src', imageUrl);
 
@@ -671,7 +671,7 @@ $(document).ready(function () {
                     videoType = 'vimeo';
                     videoID = linkUrl.substring(linkUrl.lastIndexOf('/') + 1);
 
-                    thumb = "https://www.lepers.it/morto/immagini/vimeo.png";
+                    thumb = "https://dottorpagliaccius.github.io/vimeo.png";
                 }
                 else if (linkUrl.indexOf('dailymotion.') > -1) {
 
@@ -732,8 +732,8 @@ $(document).ready(function () {
 
             //var aText = $(this).text().replace(/'/g, " ");
 
-            //$("body").append('<div class="tooltipMain" id="tooltipMain_' + index + '"><div class="videoBar" id="bar_' + index + '"><div class="videoBarLik" id="previewDiv_' + index + '" style="float:left; width:120px; background:url(' + thumb + ') no-repeat center center;"><a id="anchor_' + index + '" href="javascript:ShowVideo(\'' + videoID + '\',' + index + ',\'' + aText + '\',\'' + videoType + '\');"><img src="https://www.lepers.it/morto/immagini/play-icon.png" /></a></div><div id="closeDiv_' + index + '" style="float:left; display:none;"><a id="closeImage" href="javascript: Close(' + index + ')" style="border:0 !important;"><img src="https://www.lepers.it/morto/immagini/close.png" alt="Chiudi" title="Chiudi" style="margin-top: 3px; width: 16px; height: 16px; border:0 !important;" /></a></div></div><div style="clear: both;"></div><div class="videoContainer" id="video-embed-' + index + '"></div></div>');
-            $("body").append('<div class="tooltipMain" id="tooltipMain_' + index + '"><div class="videoBar" id="bar_' + index + '"><div class="videoBarLik" id="previewDiv_' + index + '" style="float:left; width:120px; background:url(' + thumb + ') no-repeat center center;"><a id="anchor_' + index + '" href="' + linkUrl + '" target="_blank"><img src="https://www.lepers.it/morto/immagini/play-icon.png" /></a></div><div id="closeDiv_' + index + '" style="float:left; display:none;"><a id="closeImage" href="javascript: Close(' + index + ')" style="border:0 !important;"><img src="https://www.lepers.it/morto/immagini/close.png" alt="Chiudi" title="Chiudi" style="margin-top: 3px; width: 16px; height: 16px; border:0 !important;" /></a></div></div><div style="clear: both;"></div><div class="videoContainer" id="video-embed-' + index + '"></div></div>');
+            //$("body").append('<div class="tooltipMain" id="tooltipMain_' + index + '"><div class="videoBar" id="bar_' + index + '"><div class="videoBarLik" id="previewDiv_' + index + '" style="float:left; width:120px; background:url(' + thumb + ') no-repeat center center;"><a id="anchor_' + index + '" href="javascript:ShowVideo(\'' + videoID + '\',' + index + ',\'' + aText + '\',\'' + videoType + '\');"><img src="https://dottorpagliaccius.github.io/play-icon.png" /></a></div><div id="closeDiv_' + index + '" style="float:left; display:none;"><a id="closeImage" href="javascript: Close(' + index + ')" style="border:0 !important;"><img src="https://dottorpagliaccius.github.io/close.png" alt="Chiudi" title="Chiudi" style="margin-top: 3px; width: 16px; height: 16px; border:0 !important;" /></a></div></div><div style="clear: both;"></div><div class="videoContainer" id="video-embed-' + index + '"></div></div>');
+            $("body").append('<div class="tooltipMain" id="tooltipMain_' + index + '"><div class="videoBar" id="bar_' + index + '"><div class="videoBarLik" id="previewDiv_' + index + '" style="float:left; width:120px; background:url(' + thumb + ') no-repeat center center;"><a id="anchor_' + index + '" href="' + linkUrl + '" target="_blank"><img src="https://dottorpagliaccius.github.io/play-icon.png" /></a></div><div id="closeDiv_' + index + '" style="float:left; display:none;"><a id="closeImage" href="javascript: Close(' + index + ')" style="border:0 !important;"><img src="https://dottorpagliaccius.github.io/close.png" alt="Chiudi" title="Chiudi" style="margin-top: 3px; width: 16px; height: 16px; border:0 !important;" /></a></div></div><div style="clear: both;"></div><div class="videoContainer" id="video-embed-' + index + '"></div></div>');
 
             var tooltipMain = $("#tooltipMain_" + index);
 
