@@ -3,7 +3,7 @@
 }
 
 #topMenu {
-  width: 100%;
+  width: 99.5%;
   border: 1px solid black;
   margin: auto;
   color: #000;
@@ -14,6 +14,7 @@
   top: 0;
   background-color: white;
   height: 40px;
+  z-index: 60;
 }
 .showMenu {
   width: 40px;
@@ -23,6 +24,7 @@
   font-size: 30px;
   position: fixed;
 }
+
 #showMenu {
   display: none;
 }
@@ -36,6 +38,9 @@
   right: 0;
   top: 40px;
   bottom: 0;
+  z-index: 51;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .cloud-label-widget-content {
@@ -43,81 +48,25 @@
 }
 
 #main-wrapper {
-  margin-top: 20px;
+  margin-top: 28px;
 }
 .date-header {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
-  #newsidebar-wrapper {
-    display: none;
-  }
-  #sidebar-wrapper {
-    display: none;
-  }
-  #header {
-    width: 100%;
-  }
-  #Header1_headerimg {
-    width: 100% !important;
-    height: auto !important;
-  }
-  #footer-wrapper {
-    display: none;
-  }
-
-  #box {
-    display: none;
-  }
-  #comments {
-    display: none;
-  }
-  #crosscol-wrapper {
-    display: none;
-  }
-  #header-wrapper {
-    display: none;
-  }
-  #content-wrapper {
-    width: 100%;
-    margin: 50px auto 0 auto;
-  }
-  #main-wrapper {
-    width: 98%;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  #postTable {
-    width: 100%;
-  }
-  .post-body img {
-    width: 90%;
-    height: auto;
-  }
-  #main-wrapper {
-    margin-top: 0;
-  }
-
-  #topMenu {
-    display: block;
-  }
-
-  #topMenuTitle {
-    text-align: center;
-    font-size: 25px;
-    color: black;
-    left: 70px;
-    top: 6px;
-    position: fixed;
-  }
-  #topMenuTitle:hover {
-    text-decoration: none;
-  }
-  #showMenu:checked ~ #menuNavigazione {
-    display: block;
-  }
+#postTable {
+  width: 100%;
 }
+
+.title a {
+  color: #000 !important;
+}
+
+.title a:hover {
+  text-decoration: none !important;
+}
+
+
 
 .PostUrl {
   font-family: "Trebuchet MS";
@@ -188,6 +137,13 @@
   table-layout: fixed;
 }
 
+.morirono{
+  list-style-type: none;
+  display: flex;
+  margin-left: -40px;
+  overflow-x: auto;
+}
+
 #navigation {
   padding: 0;
   margin: 0;
@@ -207,16 +163,16 @@
 }
 
 #navigation li a,
-span {
+#navigation li span {
   margin-left: 40px;
 }
 
 .navigationMenu {
   white-space: nowrap;
   background-color: transparent;
-  background-image: url("https://www.lepers.it/morto/immagini/favicon.png");
+  background-image: url("https://dottorpagliaccius.github.io/teschietto-nero.png");
   background-repeat: no-repeat !important;
-  background-position: 6% 50%;
+  background-position: 10px 12px;
   background-size: 20px;
   color: #000000 !important;
   margin: 0px !important;
@@ -232,17 +188,16 @@ span {
 .navigationMenu:hover {
   cursor: pointer;
   background-color: #000000;
-  background-image: url("https://www.lepers.it/morto/immagini/favicon-invertita.png");
+  background-image: url("https://dottorpagliaccius.github.io/teschietto-bianco.png");
   color: #ffffff !important;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
   border-radius: 10px;
-  color: White;
+}
+
+.navigationTop {
+  position: relative;
 }
 
 .navigationTop:hover {
-  -webkit-border-radius: 10px 10px 0px 0px;
-  -moz-border-radius: 10px 10px 0px 0px;
   border-radius: 10px 10px 0px 0px;
 }
 
@@ -251,7 +206,7 @@ span {
   text-decoration: none;
 }
 
-.navigationMenu:hover a {
+.navigationMenu a:hover {
   color: White !important;
   text-decoration: none !important;
 }
@@ -259,7 +214,7 @@ span {
 .navigationTop ul {
   display: none;
   position: absolute;
-  top: 20px;
+  top: 44px;
   left: 0px;
   padding: 0;
   margin: 0;
@@ -272,6 +227,20 @@ span {
   border-radius: 0px 0px 10px 10px;
   background-color: White;
   z-index: 50;
+  width: 310px;
+}
+
+.navigationTop ul li {
+  display: block !important;
+  font-size: 100% !important;
+  color: Black !important;
+}
+
+.navigationTop ul li a {
+  display: block !important;
+  font-size: 100% !important;
+  color: black !important;
+  text-decoration: none;
 }
 
 .navigationTop li {
@@ -293,7 +262,7 @@ span {
 }
 
 .navigationTop li:hover {
-  background-image: url("https://www.lepers.it/morto/immagini/favicon.png");
+  background-image: url("https://dottorpagliaccius.github.io/teschietto-nero.png");
   background-repeat: no-repeat !important;
   background-position: 5% 50%;
   color: black !important;
@@ -310,11 +279,13 @@ span {
   margin-left: 25px !important;
 }
 
-.navigationTop li:hover a {
+.navigationTop li a:hover {
   text-decoration: none !important;
+  color: black !important;
 }
 
-#Scava {
+#Scava,
+#ScavaMobile {
   border-width: 1px 1px;
   border-color: black;
   border-style: solid;
@@ -330,15 +301,18 @@ span {
   outline: none;
   float: right;
   font-size: 100%;
+  -webkit-appearance: none;
 }
 
-#Scava:hover {
+#Scava:hover,
+#ScavaMobile:hover {
   background-color: white;
   color: black;
 }
 
-#searchValueContainer {
-  background: url(https://www.lepers.it/morto/immagini/searchglass.png)
+#searchValueContainer,
+#searchValueContainerMobile {
+  background: url(https://dottorpagliaccius.github.io/searchglass.png)
     no-repeat 2% 8px;
   border: 1px solid #000;
   -moz-border-radius: 5px;
@@ -349,15 +323,29 @@ span {
   background-size: 20px;
 }
 
-#searchValueMenu {
-  width: 60%;
+#searchValueContainerMobile {
+  background: url(https://dottorpagliaccius.github.io/searchglass.png)
+    no-repeat 2% 10px;
+  background-size: 20px;
+}
+
+#searchValueMenu,
+#searchValueMobile {
+  width: 75%;
   font-size: 125%;
   margin-top: 5px;
   outline: none;
   border: 0px solid silver;
 }
 
-.navigationSearch {
+#searchValueMobile {
+  width: 65%;
+  margin-top: 7px;
+}
+
+.navigationSearch,
+.navigationSearchMobile {
+  position: relative;
   white-space: nowrap;
   background-color: white;
   background-repeat: no-repeat !important;
@@ -369,14 +357,22 @@ span {
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  width: 500px;
   height: 39px;
 }
 
-#contentSearch {
+.navigationSearchMobile {
+  width: 98%;
+}
+
+.navigationSearch {
+  width: 500px;
+}
+
+#contentSearch,
+#contentSearchMobile {
   text-align: left;
   position: absolute;
-  top: 21px;
+  top: 42px;
   left: 0px;
   border-width: 0px 1px 1px 1px;
   border-style: solid;
@@ -388,13 +384,22 @@ span {
   background-color: white;
 }
 
+#contentSearchMobile {
+  max-height: 250px;
+  overflow-y: auto;
+  width: 97.3%;
+}
+
 body {
+  position: relative;
   background: #fff;
   margin: 0;
   padding: 0px;
   font: small Verdana, Arial;
   text-align: center;
   color: #000000;
+  display: flex;
+  justify-content: center;
 }
 
 a {
@@ -419,8 +424,9 @@ a img {
   font-family: Verdana, Arial, Sans-serif;
   font-size: 18px;
   width: 100%;
-  max-width: 1600px;
+  max-width: 1265px;
   float: center;
+  overflow-x: hidden;
 }
 
 /* Header
@@ -476,6 +482,7 @@ h2.title a:hover {
 }
 
 #main-wrapper {
+  width: 98%;
   margin-left: 8px;
   float: left;
   background-color: transparent;
@@ -483,10 +490,12 @@ h2.title a:hover {
   word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
   overflow: hidden; /* fix for long non-text content breaking IE sidebar float */
   z-index: -1;
+  max-width: 1000px;
 }
 
 #sidebar-wrapper {
   margin-right: 8px;
+  margin-left: 8px;
   width: 240px;
   float: right;
   background-color: transparent;
@@ -532,15 +541,11 @@ h3 {
   padding-bottom: 1.5em;
 }
 
-.post-body img {
+#postTable > tbody > tr > td > span > div:first-child > img, #postTable > tbody > tr > td > span > div:first-child > a > img {
   padding: 6px;
   background: white;
   border: 1px solid silver;
-  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
   border-radius: 6px;
 }
 
@@ -548,11 +553,7 @@ h3 {
   padding: 0px !important;
   background: white !important;
   border: 0px solid silver !important;
-  -moz-box-shadow: 0 0 0px rgba(0, 0, 0, 0.2) !important;
-  -webkit-box-shadow: 0 0 0px rgba(0, 0, 0, 0.2) !important;
   box-shadow: 0 0 0px rgba(0, 0, 0, 0.2) !important;
-  -moz-border-radius: 0px !important;
-  -webkit-border-radius: 0px !important;
   border-radius: 0px !important;
 }
 
@@ -592,16 +593,16 @@ h3 {
 }
 
 blockquote {
-  margin: 10px;
+  margin: 20px 10px;
   padding-left: 20px;
   font-style: italic;
-  background: transparent url(https://www.lepers.it/morto/immagini/quote.png)
+  background: transparent url(https://dottorpagliaccius.github.io/quote.png)
     no-repeat;
 }
 
 /* Comments
 ----------------------------------------------- */
-#comments h4 {
+/* #comments h4 {
   margin: 1em 0;
   color: #000000;
 }
@@ -626,7 +627,7 @@ blockquote {
 #comments-block dd p {
   margin: 0 0 0.75em;
 }
-
+ */
 .deleted-comment {
   font-style: italic;
   color: gray;
@@ -635,6 +636,10 @@ blockquote {
 .feed-links {
   clear: both;
   line-height: 2.5em;
+}
+
+.blog-feeds {
+  display: none;
 }
 
 #blog-pager-newer-link {
@@ -649,10 +654,19 @@ blockquote {
   text-align: center;
 }
 
+.home-link{
+
+  display: none;
+}
+
 /* Calendar*/
 
 #bcalendar td {
   text-align: center;
+}
+
+.post-feeds {
+  display: none;
 }
 
 /* Sidebar Content
@@ -791,7 +805,7 @@ strong {
 #box {
   width: 40px;
   height: 91px;
-  background-image: url(https://www.lepers.it/morto/immagini/ArrowTopWhite.png);
+  background-image: url(https://dottorpagliaccius.github.io/ArrowTopWhite.png);
   position: fixed;
   bottom: -91px;
   right: 3px;
@@ -844,59 +858,6 @@ strong {
 #closeImage {
 }
 
-.lavaLampNoImage {
-  position: relative;
-  height: 20px;
-  width: 380px;
-  background-color: white;
-  padding: 2px;
-  margin: 2px 0;
-  overflow: hidden;
-  border: 0px solid gray;
-}
-
-.lavaLampNoImage li {
-  float: left;
-  list-style: none;
-}
-
-.lavaLampNoImage li.back {
-  border: 1px solid #000;
-  background-color: #ffb3b3;
-  width: 10px;
-  height: 18px;
-  z-index: 8;
-  position: absolute;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-}
-
-.lavaLampNoImage li a {
-  font: bold 12px arial;
-  text-decoration: none;
-  color: #000;
-  outline: none;
-  text-align: center;
-  top: 2px;
-  text-transform: uppercase;
-  letter-spacing: 0;
-  z-index: 10;
-  display: block;
-  float: left;
-  height: 25px;
-  position: relative;
-  overflow: hidden;
-  margin: auto 4px;
-}
-
-.lavaLampNoImage li a:hover,
-.lavaLampNoImage li a:active,
-.lavaLampNoImage li a:visited {
-  border: none;
-  text-decoration: none !important;
-}
-
 .loader {
   overflow: hidden;
   position: absolute;
@@ -944,8 +905,7 @@ strong {
 
 /* da controllare*/
 
-/* Label Cloud Styles
------------------------------------------------ */
+/* 
 #labelCloud {
   text-align: center;
   font-family: arial, sans-serif;
@@ -986,4 +946,163 @@ strong {
 }
 #labelCloud .label-cloud li:before {
   content: "" !important;
+} */
+
+#menuNavigazione ul {
+  list-style: none;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.8;
+  margin-left: -35px;
+}
+
+#menuNavigazione ul li{
+  margin-left: 15px;
+}
+
+#blog-pager, .blog-pager {
+  display:block;
+  padding:5px 0;
+  }
+  .showpage a, .pagenumber a, .totalpages, .current {
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 2px;
+  background: #ffffff;
+  color: #333;
+  border: 1px solid #f2f2f2;
+  font-size: 12px;
+  border-radius: 2px;
+  transition: all .3s;
+  } 
+  
+  .showpage a:hover, .pagenumber a:hover, .current {
+  background: #333333;
+  color: #ffffff;
+  text-decoration:none;
+  }
+
+  #socialPanel {
+ padding: 30px 0;display: inline-flex;justify-content: space-around;width: 100%;
+  }
+
+.shareContainer
+{
+width: 50px;position: relative;background-color: blue;float: right;bottom: 20px;
+display:none;
+}
+
+.shareButton
+{
+width: 32px;right: 6px;position: absolute;
+
+}
+
+@media screen and (max-width: 1200px) {
+  #sidebar-wrapper {
+    margin: auto;
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #menuNavigazione {
+    display: none;
+  }
+
+  #newsidebar-wrapper {
+    display: none;
+  }
+
+  #header {
+    width: 100%;
+  }
+
+  #Header1_headerimg {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  #footer-wrapper {
+    display: none;
+  }
+
+  #box {
+    display: none;
+  }
+
+  #comments {
+    display: none;
+  }
+
+  #crosscol-wrapper {
+    display: none;
+  }
+
+  #header-wrapper {
+    display: none;
+  }
+
+  #content-wrapper {
+    width: 96%;
+    margin: 0 auto;
+  }
+
+  #main-wrapper {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 50px;
+  }
+
+  #topMenu {
+    display: block;
+  }
+
+  #topMenuTitle {
+    text-align: center;
+    font-size: 25px;
+    color: black;
+  }
+
+  #topMenuTitleContainer {
+    padding: 5px;
+  }
+
+  #topMenuTitle:hover {
+    text-decoration: none !important;
+  }
+
+  .navigationSearch {
+    width: 400px;
+  }
+
+  #showMenu:checked ~ #menuNavigazione {
+    display: block;
+  }
+
+  .post-title a {
+
+    font-size: 20px;
+  }
+
+  .teschio {
+
+    width:24px;
+  }
+
+.shareContainer
+{
+
+ display:block; 
+}
+
+}
+
+@media screen and (max-width: 450px) {
+  #postTable > tbody > tr > td > span > div:first-child > img, #postTable > tbody > tr > td > span > div:first-child > a > img {
+    width: 80%;
+    height: auto;
+  }
 }

@@ -61,144 +61,201 @@ function feelingLucky() {
     document.getElementsByTagName('head')[0].appendChild(script);
 }
 
-google.load("gdata", "1.x", { packages: ["blogger"] });
+function SearchMobile() {
 
-function Search(count) {
+    var name = $("#searchValueMobile").val();
+    if(!name || name == "")
+    {
+        HideSearchMobile();
+        return;
+    }
 
-    var found = 0;
-    var content = document.getElementById('content');
+    var found = 0;    
 
-    content.innerHTML = '<img src="https://www.lepers.it/morto/immagini/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
+    var content = document.getElementById('contentSearchMobile');
 
-    var name = $("#searchValue").val();
+    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
 
-    var bloggerService = new google.gdata.blogger.BloggerService('com.appspot.interactivesampler');
-
-    var feedUri = 'https://www.blogger.com/feeds/6675218908136689140/posts/default/-/Tutto+il+morto+minuto+per+minuto?max-results=500&start-index=' + (count * 500 + 1);
+    var feedUri = '/feeds/6675218908136689140/posts/default/-/Tutto+il+morto+minuto+per+minuto?q='+name+'&max-results=20&start-index=1&alt=json';
 
     var handleBlogPostFeed = function (postsFeedRoot) {
 
-        var posts = postsFeedRoot.feed.getEntries();
+        var posts = postsFeedRoot.feed.entry;
+
+        if(!posts)
+        {
+            HideSearchMobile();
+            return;
+        }
 
         var html = '<table style="width:100%">';
 
         for (var i = 0, post; post = posts[i]; i++) {
 
-            var postTitle = post.getTitle().getText();
+            var postTitle = post.title.$t;
 
-            if (postTitle.toLowerCase().indexOf(name.toLowerCase()) < 0) continue;
-
-            if (postTitle.indexOf('Mor�') > -1 || postTitle.indexOf('winner') > -1) {
+            if (postTitle.toLowerCase().indexOf(name.toLowerCase()) < 0) 
                 continue;
-            }
+
             found++;
 
-            var postURL = post.getHtmlLink().getHref();
+            var postURL = '';
             var imageURL = '';
 
-            if (post.getThumbnail() != null) {
-                imageURL = post.getThumbnail().getUrl();
+            for (var k = 0; k< post.link.length; k++) {
+                if (post.link[k].rel == 'alternate') {
+                    postURL = post.link[k].href;
+                  break;
+                }
+              }
+
+            if (post.media$thumbnail != null) {
+                imageURL = post.media$thumbnail.url;
             }
 
             var deadName = postTitle.split('(')[0];
 
-            html += '<tr><td><img width="60" height="60" src="' + imageURL + '" style="border:0px; float:left; margin-right:6px;" /><a style="font-size:13px; margin-top:10px;" href="' + postURL + '" target="_blank">' + deadName + '</a></td></tr>';
+            html += '<tr><td><img width="60" height="60" src="' + imageURL + '" style="border:0px; float:left; margin-right:6px;" /><a style="font-size:18px" href="' + postURL + '" target="_blank">' + deadName + '</a></td></tr>';
         }
+        
+        if(found == 0)
+            HideSearchMobile();
 
         html += '</table>';
 
         content.innerHTML = html;
-
-        if (found == 0 && count < 6) Search(++count);
     };
 
-    var handleError = function (error) {
-        content.innerHTML = '<pre>' + error + '</pre>';
-    };
+    $.get(feedUri, handleBlogPostFeed);
+}
 
-    bloggerService.getBlogPostFeed(feedUri, handleBlogPostFeed, handleError);
+function GoSearchMobile() {
+
+    var name = $("#searchValueMobile").val();
+    if(!name || name == "")
+    {
+        return;
+    }
+
+    var searchValueContainer = $('#searchValueContainerMobile');
+    var contentSearch = $('#contentSearchMobile');
+
+    searchValueContainer.css('border-width', '1px 1px 0px 1px');
+    searchValueContainer.css('border-radius', '5px 5px 0px 0px');
+
+    contentSearch.width(searchValueContainer.width() + 12);
+    contentSearch.slideDown('fast', function () {
+        SearchMobile();
+    });
+}
+
+function HideSearchMobile() {
+
+    var searchValueContainer = $('#searchValueContainerMobile');
+    var contentSearch = $('#contentSearchMobile');
+
+    searchValueContainer.css('border-width', '1px');
+    searchValueContainer.css('border-radius', '5px');
+
+    contentSearch.slideUp('fast');
+    contentSearch.width(searchValueContainer.width() - 12);    
 }
 
 function GoSearch() {
+
+    var name = $("#searchValueMenu").val();
+    if(!name || name == "")
+        return;
 
     var searchValueContainer = $('#searchValueContainer');
     var contentSearch = $('#contentSearch');
 
     searchValueContainer.css('border-width', '1px 1px 0px 1px');
     searchValueContainer.css('border-radius', '5px 5px 0px 0px');
-    searchValueContainer.css('-moz-border-radius', '5px 5px 0px 0px');
 
     contentSearch.width(searchValueContainer.width() + 12);
     contentSearch.slideDown('fast', function () {
-        SearchMenu(0);
+        SearchMenu();
     });
 }
 
-function SearchMenu(count) {
+function HideSearch() {
 
-    var found = 0;
-    var content = $('#contentSearch');
+    var searchValueContainer = $('#searchValueContainer');
+    var contentSearch = $('#contentSearch');
 
-    if (count == 0) content.html('');
+    searchValueContainer.css('border-width', '1px');
+    searchValueContainer.css('border-radius', '5px');
+   
+    contentSearch.slideUp('fast');
+    contentSearch.width(searchValueContainer.width() - 12);
+}
 
-    if (content.html().length == 0)
-        content.html('<div id="tempLoader"><img src="https://www.lepers.it/morto/immagini/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...</div>');
+function SearchMenu() {
 
     var name = $("#searchValueMenu").val();
+    if(!name || name == "")
+    {
+        HideSearch();
+        return;
+    }
 
-    var bloggerService = new google.gdata.blogger.BloggerService('com.appspot.interactivesampler');
+    var found = 0;    
+    var content = document.getElementById('contentSearch');
 
-    var feedUri = 'https://www.blogger.com/feeds/6675218908136689140/posts/default/-/Tutto+il+morto+minuto+per+minuto?max-results=500&start-index=' + (count * 500 + 1);
+    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
+
+    var feedUri = '/feeds/6675218908136689140/posts/default/-/Tutto+il+morto+minuto+per+minuto?q='+name+'&max-results=20&start-index=1&alt=json';
 
     var handleBlogPostFeed = function (postsFeedRoot) {
 
-        var posts = postsFeedRoot.feed.getEntries();
+        var posts = postsFeedRoot.feed.entry;
+
+        if(!posts)
+        {
+            HideSearch();
+            return;
+        }
+
+        var html = '<table style="width:100%">';
 
         for (var i = 0, post; post = posts[i]; i++) {
 
-            var postTitle = post.getTitle().getText();
+            var postTitle = post.title.$t;
 
-            if (postTitle.toLowerCase().indexOf(name.toLowerCase()) < 0) continue;
-
-            if (postTitle.indexOf('Mor�') > -1 || postTitle.indexOf('winner') > -1) {
+            if (postTitle.toLowerCase().indexOf(name.toLowerCase()) < 0) 
                 continue;
-            }
 
             found++;
 
-            var postURL = post.getHtmlLink().getHref();
+            var postURL = '';
             var imageURL = '';
 
-            if (post.getThumbnail() != null) {
-                imageURL = post.getThumbnail().getUrl();
+            for (var k = 0; k< post.link.length; k++) {
+                if (post.link[k].rel == 'alternate') {
+                    postURL = post.link[k].href;
+                  break;
+                }
+              }
+
+            if (post.media$thumbnail != null) {
+                imageURL = post.media$thumbnail.url;
             }
 
             var deadName = postTitle.split('(')[0];
 
-            var html = '<div id="deadFound' + found + '" style="display:none;width:100%"><img width="60" height="60" src="' + imageURL + '" style="border:0px; float:left; margin-right:6px;" /><a style="font-size:13px; margin-top:10px;" href="' + postURL + '" target="_blank">' + deadName + '</a></div><div style="clear:both" />';
-
-            content.prepend(html);
-            $('#deadFound' + found).slideDown('slow')
+            html += '<tr><td><img width="60" height="60" src="' + imageURL + '" style="border:0px; float:left; margin-right:6px;" /><a style="font-size:18px;margin-left: 0px;" href="' + postURL + '" target="_blank">' + deadName + '</a></td></tr>';
         }
 
-        if (count < 6) {
-            SearchMenu(++count);
-        }
-        else {
-            $("#tempLoader").remove();
+        if(found == 0)
+            HideSearch();
 
-            if (content.html().length == 0) {
+            html += '</table>';
 
-                content.html('<div id="tempLoader"><img src="https://www.lepers.it/morto/immagini/closeWhite.png" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Nessun risultato</div>');
-            }
-        }
+            content.innerHTML = html;
     };
 
-    var handleError = function (error) {
-
-    };
-
-    bloggerService.getBlogPostFeed(feedUri, handleBlogPostFeed, handleError);
+    $.get(feedUri, handleBlogPostFeed);
 }
 
 var videosArray = new Array();
@@ -326,6 +383,9 @@ var _index = 0;
 
 function BindPostPerview(selector) {
 
+    if($("#topMenu").is(":visible"))
+            return;
+
     $(selector).each(function () {
 
         var postUrl = $(this).attr('href');
@@ -347,7 +407,7 @@ function BindPostPerview(selector) {
 
             $(this).attr("scolo", _index);
 
-            $("body").append('<div class="loaderPost" id="loader' + _index + '"><img src="https://www.lepers.it/morto/immagini/refreshInvertita.gif" /></div>');
+            $("body").append('<div class="loaderPost" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io/refreshInvertita.gif" /></div>');
 
             var loader = $("#loader" + _index);
 
@@ -372,7 +432,7 @@ function BindPostPerview(selector) {
 
                 if (status == "error") {
 
-                    $("#loader" + _index).html("<img src='https://www.lepers.it/morto/immagini/close.png' />");
+                    $("#loader" + _index).html("<img src='https://dottorpagliaccius.github.io/close.png' />");
                     return true;
                 }
 
@@ -383,7 +443,7 @@ function BindPostPerview(selector) {
 
                 top = ((top - $(window).scrollTop() < height) ? $(window).scrollTop() : top - height);
 
-                $(this).css({ 'width': '415px', 'border': '1px solid black', 'border-radius': '0px' })
+                $(this).css({ 'width': '500px', 'border': '1px solid black', 'border-radius': '0px' , 'font-size':'18px'})
                     .animate({ 'top': top + 'px' }, 500);
             });
         }
@@ -406,17 +466,17 @@ function BindPostPerview(selector) {
 
 $(document).ready(function () {
 
-    if ($.browser.mozilla || ($.browser.msie && $.browser.version == '7.0')) {
+    // if ($.browser.mozilla || ($.browser.msie && $.browser.version == '7.0')) {
 
-        $("#Scava").height($("#Scava").innerHeight() + 3);
-    }
+    //     $("#Scava").height($("#Scava").innerHeight() + 3);
+    // }
 
     $.expr[':'].linkNoImg = function (obj) {
 
         var $this = $(obj);
         var href = $this.attr('href');
 
-        return href != null && $this.attr('preview') == null && href.match(/\.(gif|GIF|jpe?g|JPE?G|png|PNG|bmp|BMP)$/i) != null && !(($this.attr('imageanchor') != null && $this.attr('onblur') == null) || ($this.attr('imageanchor') == null && $this.attr('onblur') != null));
+        return href != null && !($this.children('img').length) && $this.attr('preview') == null && href.match(/\.(gif|GIF|jpe?g|JPE?G|png|PNG|bmp|BMP)$/i) != null && !(($this.attr('imageanchor') != null && $this.attr('onblur') == null) || ($this.attr('imageanchor') == null && $this.attr('onblur') != null));
     };
 
     $.expr[':'].linkImg = function (obj) {
@@ -434,8 +494,8 @@ $(document).ready(function () {
         return href != null && (href.indexOf('youtube.') > -1 || href.indexOf('vimeo.') > -1 || href.indexOf('dailymotion.') > -1 || href.indexOf('metacafe.') > -1);
     };
 
-
     var _fixedWidth = 250;
+    var _mobileFixedWidth = 250;
     var _index = 0;
 
     $.expr[':'].isMorto = function (obj) {
@@ -452,13 +512,16 @@ $(document).ready(function () {
 
     $('a:linkNoImg').hover(function (e) {
 
+            if($("#topMenu").is(":visible"))
+                return;
+
             _index++;
 
             var screenY = e.screenY;
 
             $(this).attr("scolo", _index);
 
-            $("body").append('<div class="loader" id="loader' + _index + '"><img src="https://www.lepers.it/morto/immagini/refreshInvertita.gif" /></div>');
+            $("body").append('<div class="loader" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io//refresh-bianca.gif" /></div>');
 
             $("#loader" + _index).css("top", (e.pageY + 10) + "px").css("left", (e.pageX + 5) + "px").fadeIn("fast");
 
@@ -473,7 +536,7 @@ $(document).ready(function () {
 
                 if (thisImage.prop('width') == 0) {
 
-                    loader.html("<img src='https://www.lepers.it/morto/immagini/close.png' />");
+                    loader.html("<img src='https://dottorpagliaccius.github.io/close.png' />");
                     return true;
                 }
 
@@ -498,7 +561,7 @@ $(document).ready(function () {
 
             }).error(function () { // notify the user that the image could not be loaded
 
-                    $("#loader" + _index).html("<img src='https://www.lepers.it/morto/immagini/close.png' />");
+                    $("#loader" + _index).html("<img src='https://dottorpagliaccius.github.io/close.png' />");
 
                 }).attr('src', imageUrl);
         },
@@ -513,9 +576,81 @@ $(document).ready(function () {
 
     $('a:linkNoImg').mousemove(function (e) {
 
+        if($("#topMenu").is(":visible"))
+            return;
+
         var index = $(this).attr("scolo");
 
         $("#loader" + index).css("left", (e.pageX + 5) + "px");
+    });
+
+    $('a:linkNoImg').click(function (e) {
+
+        if(!$("#topMenu").is(":visible"))
+            return;
+
+        e.preventDefault();
+
+        _index++;
+
+        var screenY = e.screenY;
+
+        $(this).attr("scolo", _index);
+
+        $("body").append('<div class="loader" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io/refresh-bianca.gif" /></div>');
+
+        var leftPosition = (e.pageX + 5);
+
+        $("#loader" + _index).css("top", (e.pageY + 10) + "px").css("left", leftPosition + "px").fadeIn("fast");
+
+        var imageUrl = $(this).attr('href');
+
+        var currentImage = new Image()
+
+        $(currentImage).load(function () {
+
+            var thisImage = $(this);
+            var loader = $("#loader" + _index);
+
+            if (thisImage.prop('width') == 0) {
+
+                loader.html("<img src='https://dottorpagliaccius.github.io/close.png' />");
+                return true;
+            }
+
+            var finalHeight = Math.round(thisImage.prop('height') / thisImage.prop('width') * _mobileFixedWidth);
+
+            var topPosition = parseInt(loader.css("top"));
+
+            if (screenY + finalHeight > screen.height) {
+                topPosition = topPosition - finalHeight - 35;
+            }
+
+            loader.css("background-color", "#fff")
+                .html(" ")
+                .animate({ 'width': _mobileFixedWidth, 'height': finalHeight, 'top': topPosition, 'left' : $(window).width()/2 - _mobileFixedWidth/2 }, 100, function () {
+
+                    thisImage.css('display', 'none');  
+
+                    loader.html('<img src="' + imageUrl + '" style="width:' + _mobileFixedWidth + 'px; height:' + finalHeight + 'px;"/>');
+
+                    thisImage.fadeIn();
+                });
+
+        }).error(function () { // notify the user that the image could not be loaded
+
+                $("#loader" + _index).html("<img src='hhttps://dottorpagliaccius.github.io/close.png' />");
+
+            }).attr('src', imageUrl);
+
+            setTimeout(function () {
+            
+                    var index = $(this).attr("scolo");
+            
+                    $("#loader" + index).fadeOut(300, function () {
+                        $("#loader" + index).remove();
+                    });
+                }, 3000);
     });
 
     $('a:isVideo').hover(function (e) {
@@ -536,7 +671,7 @@ $(document).ready(function () {
                     videoType = 'vimeo';
                     videoID = linkUrl.substring(linkUrl.lastIndexOf('/') + 1);
 
-                    thumb = "https://www.lepers.it/morto/immagini/vimeo.png";
+                    thumb = "https://dottorpagliaccius.github.io/vimeo.png";
                 }
                 else if (linkUrl.indexOf('dailymotion.') > -1) {
 
@@ -597,8 +732,8 @@ $(document).ready(function () {
 
             //var aText = $(this).text().replace(/'/g, " ");
 
-            //$("body").append('<div class="tooltipMain" id="tooltipMain_' + index + '"><div class="videoBar" id="bar_' + index + '"><div class="videoBarLik" id="previewDiv_' + index + '" style="float:left; width:120px; background:url(' + thumb + ') no-repeat center center;"><a id="anchor_' + index + '" href="javascript:ShowVideo(\'' + videoID + '\',' + index + ',\'' + aText + '\',\'' + videoType + '\');"><img src="https://www.lepers.it/morto/immagini/play-icon.png" /></a></div><div id="closeDiv_' + index + '" style="float:left; display:none;"><a id="closeImage" href="javascript: Close(' + index + ')" style="border:0 !important;"><img src="https://www.lepers.it/morto/immagini/close.png" alt="Chiudi" title="Chiudi" style="margin-top: 3px; width: 16px; height: 16px; border:0 !important;" /></a></div></div><div style="clear: both;"></div><div class="videoContainer" id="video-embed-' + index + '"></div></div>');
-            $("body").append('<div class="tooltipMain" id="tooltipMain_' + index + '"><div class="videoBar" id="bar_' + index + '"><div class="videoBarLik" id="previewDiv_' + index + '" style="float:left; width:120px; background:url(' + thumb + ') no-repeat center center;"><a id="anchor_' + index + '" href="' + linkUrl + '" target="_blank"><img src="https://www.lepers.it/morto/immagini/play-icon.png" /></a></div><div id="closeDiv_' + index + '" style="float:left; display:none;"><a id="closeImage" href="javascript: Close(' + index + ')" style="border:0 !important;"><img src="https://www.lepers.it/morto/immagini/close.png" alt="Chiudi" title="Chiudi" style="margin-top: 3px; width: 16px; height: 16px; border:0 !important;" /></a></div></div><div style="clear: both;"></div><div class="videoContainer" id="video-embed-' + index + '"></div></div>');
+            //$("body").append('<div class="tooltipMain" id="tooltipMain_' + index + '"><div class="videoBar" id="bar_' + index + '"><div class="videoBarLik" id="previewDiv_' + index + '" style="float:left; width:120px; background:url(' + thumb + ') no-repeat center center;"><a id="anchor_' + index + '" href="javascript:ShowVideo(\'' + videoID + '\',' + index + ',\'' + aText + '\',\'' + videoType + '\');"><img src="https://dottorpagliaccius.github.io/play-icon.png" /></a></div><div id="closeDiv_' + index + '" style="float:left; display:none;"><a id="closeImage" href="javascript: Close(' + index + ')" style="border:0 !important;"><img src="https://dottorpagliaccius.github.io/close.png" alt="Chiudi" title="Chiudi" style="margin-top: 3px; width: 16px; height: 16px; border:0 !important;" /></a></div></div><div style="clear: both;"></div><div class="videoContainer" id="video-embed-' + index + '"></div></div>');
+            $("body").append('<div class="tooltipMain" id="tooltipMain_' + index + '"><div class="videoBar" id="bar_' + index + '"><div class="videoBarLik" id="previewDiv_' + index + '" style="float:left; width:120px; background:url(' + thumb + ') no-repeat center center;"><a id="anchor_' + index + '" href="' + linkUrl + '" target="_blank"><img src="https://dottorpagliaccius.github.io/play-icon.png" /></a></div><div id="closeDiv_' + index + '" style="float:left; display:none;"><a id="closeImage" href="javascript: Close(' + index + ')" style="border:0 !important;"><img src="https://dottorpagliaccius.github.io/close.png" alt="Chiudi" title="Chiudi" style="margin-top: 3px; width: 16px; height: 16px; border:0 !important;" /></a></div></div><div style="clear: both;"></div><div class="videoContainer" id="video-embed-' + index + '"></div></div>');
 
             var tooltipMain = $("#tooltipMain_" + index);
 
@@ -624,23 +759,23 @@ $(document).ready(function () {
             }, 3000);
         });
 
-    $("#Morti").hover(function () {
+  /*   $("#Morti").hover(function () {
 
             $("#Morti_Menu").slideDown(200);
         }
         , function () {
 
             $("#Morti_Menu").slideUp(100);
-        });
+        }); */
 
-    $("#Hof").hover(function () {
+  /*   $("#Hof").hover(function () {
 
             $("#Hof_Menu").slideDown(200);
         }
         , function () {
 
             $("#Hof_Menu").slideUp(100);
-        });
+        }); */
 
     $("#Categorie").hover(function () {
 
@@ -651,7 +786,7 @@ $(document).ready(function () {
             $("#Categorie_Menu").slideUp(100);
         });
 
-    $("#Contatti").hover(function () {
+  /*   $("#Contatti").hover(function () {
 
             $("#Contatti_Menu").slideDown(200);
         }
@@ -659,7 +794,7 @@ $(document).ready(function () {
 
             $("#Contatti_Menu").slideUp(100);
         });
-
+ */
     $("#toggle").click(function () {
         $("#resto").slideDown("normal");
         $(this).fadeOut();
@@ -668,6 +803,21 @@ $(document).ready(function () {
             $("#resto").slideUp("normal");
             $("#toggle").fadeIn();
         }, 25000);
+    });
+
+    $('#tastoMenu').click(function (e) {
+
+        $(menuNavigazione).slideToggle(function() {
+
+            if( $(menuNavigazione).is(":visible"))
+        {
+            $(document.body).css("overflow","hidden");         
+        }
+        else
+        {
+            $(document.body).css("overflow","auto");         
+        }
+          });
     });
 
     $('#box').click(function (e) {
@@ -688,5 +838,31 @@ $(document).ready(function () {
         $('#box').animate({ bottom: '-60px' }, 'slow');
 
     }, 7000);
+
+    $("#searchValueMobile").focus(function(){
+        $('#menuMobile').hide();
+    });
+    
+    $("#searchValueMobile").blur(function(){
+        $('#ScavaMobile').click();
+        $('#menuMobile').show();
+    });
+
+    $(".shareButton").click(function(){
+     
+        var title=$(this).attr("title");
+        var description=$(this).attr("description");
+        var url=$(this).attr("url");
+
+        if (navigator.share) {
+            navigator.share({
+              title: title,
+              text: description,
+              url: url
+            })
+              .then(() => console.log('Successful share'))
+              .catch((error) => console.log('Error sharing', error));
+          }
+    });
 
 });
