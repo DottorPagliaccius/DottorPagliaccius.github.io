@@ -74,7 +74,7 @@ function SearchMobile() {
 
     var content = document.getElementById('contentSearchMobile');
 
-    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
+    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh-nera.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
 
     var feedUri = '/feeds/6675218908136689140/posts/default/-/Tutto+il+morto+minuto+per+minuto?q='+name+'&max-results=20&start-index=1&alt=json';
 
@@ -407,7 +407,7 @@ function BindPostPerview(selector) {
 
             $(this).attr("scolo", _index);
 
-            $("body").append('<div class="loaderPost" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io/refreshInvertita.gif" /></div>');
+            $("body").append('<div class="loaderPost" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io/refresh-bianca.gif" /></div>');
 
             var loader = $("#loader" + _index);
 
