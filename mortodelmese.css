@@ -234,6 +234,7 @@
   display: block !important;
   font-size: 100% !important;
   color: Black !important;
+  background-size: 20px;
 }
 
 .navigationTop ul li a {
