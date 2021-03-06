@@ -3,7 +3,7 @@
 //     if (days) {
 //         var date = new Date();
 //         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-//         var expires = "; expires=" + date.toGMTString();
+//         var expires = "; expires=" + adate.toGMTString();
 //     }
 //     else var expires = "";
 
@@ -109,9 +109,17 @@ function SearchMobile() {
                 }
               }
 
-            if (post.media$thumbnail != null) {
-                imageURL = post.media$thumbnail.url;
-            }
+              if (post.media$thumbnail != null) {                     
+                imageURL = post.media$thumbnail.url.replace("/s72-c/","/s120-c/");
+              }
+              else if (post.content.$t.match(/src=(.+?[\.jpg|\.gif|\.png]")/) != null)       
+              {       
+              imageURL = post.content.$t.match(/src=(.+?[\.jpg|\.gif|\.png]")/)[1].split('"').join('').replace(/\/w(\d+)-h(\d+)\//,"/s120-c/");
+              }
+              else      
+              {       
+              imageURL = "https://dottorpagliaccius.github.io/teschietto-nero.png";   
+              }
 
             var deadName = postTitle.split('(')[0];
 
@@ -203,7 +211,7 @@ function SearchMenu() {
     var found = 0;    
     var content = document.getElementById('contentSearch');
 
-    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
+    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh-nera.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
 
     var feedUri = '/feeds/6675218908136689140/posts/default/-/Tutto+il+morto+minuto+per+minuto?q='+name+'&max-results=20&start-index=1&alt=json';
 
