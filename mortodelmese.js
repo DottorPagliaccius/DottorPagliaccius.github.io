@@ -529,7 +529,7 @@ $(document).ready(function () {
 
             $(this).attr("scolo", _index);
 
-            $("body").append('<div class="loader" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io//refresh-bianca.gif" /></div>');
+            $("body").append('<div class="loader" id="loader' + _index + '"><img src="https://dottorpagliaccius.github.io/refresh-bianca.gif" /></div>');
 
             $("#loader" + _index).css("top", (e.pageY + 10) + "px").css("left", (e.pageX + 5) + "px").fadeIn("fast");
 
