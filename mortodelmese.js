@@ -437,7 +437,7 @@ function BindPostPerview(selector) {
                 }
 
                 $(this).css("background-color", "#fff");
-                $(this).find().first().css('width', '90%');
+                $(this).find().first().css('width', '90%');  
 
                 var top = e.pageY;
                 var height = parseInt($(this).css("height"));
