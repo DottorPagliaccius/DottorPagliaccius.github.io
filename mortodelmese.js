@@ -203,7 +203,7 @@ function SearchMenu() {
     var found = 0;    
     var content = document.getElementById('contentSearch');
 
-    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
+    content.innerHTML = '<img src="https://dottorpagliaccius.github.io/refresh-nera.gif" style="border: 0px; margin-left: 5px; margin-top: 10px;" />&nbsp;Sto scavando...';
 
     var feedUri = '/feeds/6675218908136689140/posts/default/-/Tutto+il+morto+minuto+per+minuto?q='+name+'&max-results=20&start-index=1&alt=json';
 
