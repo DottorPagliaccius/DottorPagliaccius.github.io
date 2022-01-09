@@ -477,7 +477,7 @@ $(document).ready(function () {
         var $this = $(obj);
         var href = $this.attr('href');
 
-        return href != null && !($this.children('img').length) && $this.attr('preview') == null && href.match(/\.(gif|GIF|jpe?g|JPE?G|png|PNG|bmp|BMP)$/i) != null && !(($this.attr('imageanchor') != null && $this.attr('onblur') == null) || ($this.attr('imageanchor') == null && $this.attr('onblur') != null));
+        return href != null && !($this.children('img').length) && ($this.attr('preview') != null || href.match(/\.(gif|GIF|jpe?g|JPE?G|png|PNG|bmp|BMP)$/i) != null) && !(($this.attr('imageanchor') != null && $this.attr('onblur') == null) || ($this.attr('imageanchor') == null && $this.attr('onblur') != null));
     };
 
     $.expr[':'].linkImg = function (obj) {
